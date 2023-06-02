@@ -26,34 +26,23 @@ public class ItemDao {
 	public Item getItem(Integer id) {
 		param.clear();
 		param.put("id", id);
-		return template.selectOne("dao.Mapper.ItemMapper.select",param);
+		return template.selectOne("dao.mapper.ItemMapper.select",param);
 	}
 	public int maxId() {
 		//Integer.class : select 결과 자료형
-		return template.queryForObject
-				("select ifnull(max(id),0) from item", param , Integer.class);
+		return template.getMapper(cls).maxId();
 	}
 	
 	public void insert(Item item) {
-		//:id ...  : item 객체의 프로퍼티로 설정
-		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-		String sql = 
-				"insert into item (id,name,price,description, pictureUrl)"
-				+ " values (:id,:name,:price,:description,:pictureUrl)";
-		template.update(sql, param);
+		template.getMapper(cls).insert(item);
 	}
 	public void update(Item item) {
-		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-		String sql = 
-				"update item set name=:name, price=:price, description=:description,  pictureUrl=:pictureUrl"
-				+ " where id=:id";
-		
-		template.update(sql, param);
+		template.getMapper(cls).update(item);
 	}
 	public void delete(Integer id) {
 		param.clear();
 		param.put("id",id);
-		template.update("delete from item where id=:id", param);
+		template.getMapper(cls).delete(param);
 	}
 
 
