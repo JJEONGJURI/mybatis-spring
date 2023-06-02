@@ -4,42 +4,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+
 import org.springframework.stereotype.Repository;
 
+import dao.mapper.SaleMapper;
 import logic.Sale;
 
 @Repository //객체화되고 있어야 shopSerivce 에 주입이 된다.
 public class SaleDao {
-	private NamedParameterJdbcTemplate template;
-	private Map<String, Object> param = new HashMap<>();
-	private RowMapper<Sale> mapper = new BeanPropertyRowMapper<>(Sale.class);
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		//datasource 들고와서 template 에 넣는다
-		template = new NamedParameterJdbcTemplate(dataSource);
-	}
+	private SqlSessionTemplate template;
+	private Map<String, Object> param = new HashMap<>();
+	private final Class<SaleMapper> cls = SaleMapper.class;
+
 	public int getMaxSaleId() { //saleid 최대값 조회
-		return template.queryForObject("select ifnull(max(saleid),0) from sale", param, Integer.class);
+		return template.getMapper(cls).getMaxSaleId();
 	}
 	public void insert(Sale sale) { //sale 테이블에 데이터 추가
-		String sql = "insert into sale (saleid, userid, saledate)"
-				+ " values (:saleid,:userid,now())" ;
-		SqlParameterSource param = new BeanPropertySqlParameterSource(sale);
-		template.update(sql,param);
+		template.getMapper(cls).insert(sale);
 	}
 	public List<Sale> list(String userid) {
-		String sql = "select * from sale where userid=:userid"
-				+ " order by saleid desc"; //최근 주문 순서로 조회
 		param.clear();
 		param.put("userid", userid);
-		return template.query(sql,param,mapper);
+		return template.getMapper(cls).select(param);
 	}
 }

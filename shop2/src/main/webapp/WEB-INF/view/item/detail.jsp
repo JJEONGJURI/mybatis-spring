@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h2>상품 상세 보기</h2>
-	<table class="w3-table-all">
+	<table class="w3-table">
 		<tr>
 			<td><img src="../img/${item.pictureUrl}"></td>
 			<td>

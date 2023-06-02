@@ -15,7 +15,7 @@ public interface ItemMapper {
 	@Select({"<script>",
 			"select * from item <if test='id != null'> where id=#{id}</if> order by id",
 			"</script>"})
-	List<Item> select(Map<String, Object> param);
+	List<Item> select(Map<String, Object> param); //현재 파라미터값은 비어있다?
 
 	@Select("select ifnull(max(id),0) from item")
 	int maxId();
