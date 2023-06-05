@@ -19,6 +19,9 @@ public interface SaleMapper {
 
 	@Select("select * from sale where userid=#{userid} order by saleid desc")
 	List<Sale> select(Map<String, Object> param);
+	
+	@Select("select * from sale where userid = #{value}")
+	List<Sale> list(String userid);
 
 
 }

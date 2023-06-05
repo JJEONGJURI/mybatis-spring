@@ -91,7 +91,7 @@
 				</tr>
 				<tr id="saleLine${stat.index}" class="saleLine"> 
 					<td colspan="3" align="center">
-						<table>
+						<table class="w3-table-all">
 							<tr>
 								<td>상품명</td>
 								<td>상품가격</td>

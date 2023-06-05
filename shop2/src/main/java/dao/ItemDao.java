@@ -23,6 +23,8 @@ public class ItemDao {
 	public List<Item> list() {
 		param.clear();
 		return template.getMapper(cls).select(param);	//item 테이블의 전체 내용을 Item 객체의 목록 리턴	
+	//	return template.getMapper(cls).select(null);	//null 써도 됨	
+		
 	}
 	public Item getItem(Integer id) {
 		param.clear();
@@ -33,7 +35,9 @@ public class ItemDao {
 	// 하지만 우리가 필요한건 한건만 나오면 됨
 		return template.selectOne("dao.mapper.ItemMapper.select",param);
 		//template로 부터 레코드 한건만 가져오는데 dao.mapper.ItemMapper 가 name space임. 이걸 실행하는데 param 정보를 넣어줄게 . param 에는 id 값 있음.
+		//selectOne() : 리턴되는 데이터의 레코드 갯수가 한개인 경우 
 	}
+
 	public int maxId() {
 		//Integer.class : select 결과 자료형
 		return template.getMapper(cls).maxId();
@@ -47,7 +51,7 @@ public class ItemDao {
 	}
 	public void delete(Integer id) {
 		param.clear();
-		param.put("id",id);
+		param.put("id",id); //다 지우면 안되니까 id 파라미터 있어야함.
 		template.getMapper(cls).delete(param);
 	}
 

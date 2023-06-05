@@ -30,5 +30,6 @@ public class SaleDao {
 		param.clear();
 		param.put("userid", userid);
 		return template.getMapper(cls).select(param);
+	//  return template.getMapper(SaleMapper.class).list(userid);
 	}
 }

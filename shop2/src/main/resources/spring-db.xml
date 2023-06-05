@@ -49,13 +49,14 @@
  		</property>
  		
  	</bean>
+ 	<!-- 데이터 트랜잭션(:all or nothing 데이터를 원자화한다) 처리 설정 시작-->
  	<tx:annotation-driven transaction-manager="txManager"/>
- 	<!-- 트랜잭션 할거야 -->
  	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
  		<!-- ref 는 위에 bean id 와 같아야 한다. -->
  		<property name="dataSource" ref="dataSource" />
  	</bean>
- 	
+ 	<!-- 데이터 트랜잭션 처리 설정 끝-->
+ 	 	
  	<!-- mybatis 관련 설정 -->
  	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
  		<property name="dataSource" ref="dataSource" /> <!-- Connection 객체 -->

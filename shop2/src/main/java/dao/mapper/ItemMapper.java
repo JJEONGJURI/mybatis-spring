@@ -16,6 +16,8 @@ public interface ItemMapper {
 			"select * from item <if test='id != null'> where id=#{id}</if> order by id",
 			"</script>"})
 	List<Item> select(Map<String, Object> param); //현재 파라미터값은 비어있다?
+	//namespacd : dao.mapper.ItemMapper
+	//select : sql 문장의 이름
 
 	@Select("select ifnull(max(id),0) from item")
 	int maxId();
