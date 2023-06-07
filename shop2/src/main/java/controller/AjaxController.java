@@ -216,6 +216,11 @@ public class AjaxController {
 		return map;
 //		return trlist;
 	}
+	/*
+	 * List 객체 : 클라이언트로 배열 객체로 전달
+	 * Map.Entry<String,Integer> : Json 형식으로 클라이언트로 전달
+	 * 	=> [{홍길동:10},{김삿갓:7},...] 형태로 전달
+	 */
 	@RequestMapping("graph1")
 	public List<Map.Entry<String, Integer>> graph1(String id) {
 		Map<String,Integer> map = service.graph1(id); //{"홍길동"=10,"김삿갓"=7....}
@@ -224,8 +229,15 @@ public class AjaxController {
 			list.add(m);
 		}
 		Collections.sort(list,(m1,m2)->m2.getValue() - m1.getValue()); //등록 건수의 내림차순 정렬
-		return list;
-		
+		return list;	
+	}
+	@RequestMapping("graph2")
+	public List<Map.Entry<String, Integer>> graph2(String id) {
+		Map<String,Integer> map = service.graph2(id); //{"홍길동"=10,"김삿갓"=7....} 
+		List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+		//순서 유지하려고 list로 함
+		//map.entrySet 은 set객체임
+		return list;	
 	}
 }
  
