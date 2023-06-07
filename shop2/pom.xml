@@ -193,6 +193,13 @@
 			<version>0.9.5.5</version>
 		</dependency>   
   		<!--connection Pool 에 관련한 객체 끝 -->
+  		<!--lombok 관련설정 -->
+  		<dependency>
+  			<groupId>org.projectlombok</groupId>
+  			<artifactId>lombok</artifactId>
+  			<version>1.18.28</version>
+  		</dependency>
+  		<!--lombok 관련설정 끝-->
 	</dependencies>
   
   <build>
