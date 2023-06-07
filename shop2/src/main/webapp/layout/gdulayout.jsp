@@ -105,7 +105,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-half">
-      <div class="w3-container w3-red w3-padding-16 w3-center">
+      <div class="w3-container w3-padding-16 w3-center">
      	 <input type="radio" name="pie" onchange="piegraph(2)" checked="checked">자유게시판 &nbsp;&nbsp;
      	 <input type="radio" name="pie" onchange="piegraph(3)" >QNA &nbsp;&nbsp;
      	 <div id = "piecontainer " style="width:100%; border:1px solid #ffffff">
@@ -114,7 +114,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
     </div>
     <div class="w3-half">
-      <div class="w3-container w3-blue w3-padding-16 w3-center">
+      <div class="w3-container  w3-padding-16 w3-center">
      	 <input type="radio" name="barline" onchange="barlinegraph(2)" checked="checked">자유게시판 &nbsp;&nbsp;
      	 <input type="radio" name="barline" onchange="barlinegraph(3)" >QNA &nbsp;&nbsp;
      	 <div id = "barcontainer " style="width:100%; border:1px solid #ffffff">

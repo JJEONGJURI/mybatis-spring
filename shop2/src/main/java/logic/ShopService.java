@@ -186,10 +186,11 @@ public class ShopService {
 		List<Map<String,Object>> list = boardDao.graph1(id);
 		//list => map 형태로 변경하여 Controller로 리턴
 		Map<String, Integer> map = new HashMap<>();
-		map.put("id", 1);
-		map.put("id", 2);
-		map.put("id", 3);		
-		list.add(map);
-		return null;
+		for(Map<String,Object> m: list) {
+			String writer = (String)m.get("writer");
+			long cnt = (Long) m.get("cnt");
+			map.put(writer, (int)cnt);
+		}
+		return map;
 	}
 }
