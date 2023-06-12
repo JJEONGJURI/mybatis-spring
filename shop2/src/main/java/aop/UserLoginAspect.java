@@ -32,7 +32,7 @@ public class UserLoginAspect {
 			throw new LoginException("로그인이 필요합니다.","../user/login");
 		}
 	}
-
+ 
 	/*
 	 	@Component
 	 	@Aspect

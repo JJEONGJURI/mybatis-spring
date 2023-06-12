@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import interceptor.BoardInterceptor;
 
 @Configuration	//xml 방식의 설정 대신하는 자바클래스
-@ComponentScan(basePackages= {"controller","logic","dao","aop","websocket"})
+@ComponentScan(basePackages= {"controller","logic","dao","aop","websocket","util"})
 //spring-mvc.xml <context:component-scan base-package="" > 부분 
 @EnableAspectJAutoProxy
 //aop:aspectj-autoproxy : AOP 관련 어노테이션 사용
@@ -65,8 +65,8 @@ public class MvcConfig implements WebMvcConfigurer {
 		Properties pr = new Properties();
 		//		발생예외클래스							호출되는 뷰의 이름
 		pr.put("exception.CartEmptyException", "exception"); 
-		pr.put("exception.LoginEmptyException", "exception");
-		pr.put("exception.BoardEmptyException", "exception");
+		pr.put("exception.LoginException", "exception");
+		pr.put("exception.BoardException", "exception");
 		ser.setExceptionMappings(pr);
 		return ser;
 	}

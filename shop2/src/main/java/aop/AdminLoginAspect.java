@@ -12,7 +12,7 @@ import exception.LoginException;
 import logic.User;
 
 @Component 
-@Aspect
+//@Aspect
 public class AdminLoginAspect {
 	@Around("execution(* controller.AdminController.*(..)) && args(..,session)")
 	//어드

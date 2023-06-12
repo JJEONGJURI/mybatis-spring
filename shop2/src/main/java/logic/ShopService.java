@@ -1,8 +1,6 @@
 package logic;
 
 import java.io.File;
-import java.io.Writer;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.CommentDao;
 import dao.ItemDao;
 import dao.SaleDao;
 import dao.SaleItemDao;
@@ -33,6 +32,8 @@ public class ShopService {
 	private SaleItemDao saleItemDao;
 	@Autowired 
 	private BoardDao boardDao;
+	@Autowired 
+	private CommentDao commDao;
 
 	public List<Item> itemList() {
 		return itemDao.list();
@@ -209,4 +210,25 @@ public class ShopService {
 		}
 		return map;	//{2023-06-07:10,...}
 	}
+	public List<User> getUserlist(String phoneno) {	
+		return userDao.phoneList(phoneno);
+	}
+
+	public int commmaxseq(int num) {
+		return commDao.maxseq(num);
+	}
+	public void comminsert( Comment comm) {
+		commDao.insert(comm);
+	}
+	public List<Comment> commentlist(Integer num) {
+		return commDao.list(num);
+	}
+	public void commdel(int num, int seq) {
+		commDao.delete(num,seq);
+	}
+	public Comment getSelectOne(int num, int seq) {
+		return commDao.selectOne(num,seq);
+	}
+
+
 }

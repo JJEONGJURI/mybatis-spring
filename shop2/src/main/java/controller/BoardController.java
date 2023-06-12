@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import exception.BoardException;
 import exception.LoginException;
 import logic.Board;
+import logic.Comment;
 import logic.ShopService;
 
 @Controller
@@ -134,7 +135,14 @@ public class BoardController {
 			mav.addObject("boardName","자유게시판");
 		else if(board.getBoardid().equals("3"))
 			mav.addObject("boardName","QNA");
+		List<Comment> commlist = service.commentlist(num);
+		mav.addObject("commlist",commlist);	
+		//유효성 검증에 필요한 Comment 객체
+		Comment comm = new Comment();
+		comm.setNum(num);
+		mav.addObject("comment",comm);
 		return mav;
+		
 	}
 	@GetMapping({"reply","update","delete"})
 	public ModelAndView getBoard(Integer num,HttpSession session) {
@@ -266,4 +274,31 @@ public class BoardController {
 		model.addAttribute("fileName",fileName);
 	    return "ckedit";//view 이름. /WEB-INF/view/ckedit.jsp
 	}
+	
+	@RequestMapping("comment") //댓글등록
+	public ModelAndView comment (@Valid Comment comm, BindingResult bresult) {
+		ModelAndView mav = new ModelAndView("board/detail");
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		int seq = service.commmaxseq(comm.getNum()); //num에 해당하는 최대 seq 컬럼의 값
+		comm.setSeq(++seq);
+		service.comminsert(comm); //입력받은 내용 insert
+		mav.setViewName("redirect:detail?num="+comm.getNum()+"#comment");
+		return mav;
+	}
+	@RequestMapping("commdel")
+	public String commdel(Comment comm) {
+		//현재 댓글을 아무나 삭제 가능 => 수정 필요
+		//	업무요건1 : 로그인한 회원만 댓글 가능 => 내 글만 삭제 가능
+		//	업무요건2 : 로그아웃 상태에서도 댓글가능 => 비밀번호 추가. 비밀번호 검증 필요
+		Comment dbcomm = service.getSelectOne(comm.getNum(),comm.getSeq());
+		if(comm.getPass().equals(dbcomm.getPass())) {
+			service.commdel(comm.getNum(),comm.getSeq());	 //파일업로드, db 게시글 수정
+		}	else 
+				throw new BoardException("댓글 삭제 실패","detail?num="+comm.getNum()+"#comment");
+			return "redirect:detail?num="+comm.getNum()+"#comment";
+		
+		}
 }
