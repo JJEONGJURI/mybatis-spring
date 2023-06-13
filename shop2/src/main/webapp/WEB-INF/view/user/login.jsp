@@ -56,6 +56,11 @@ function win_open(page) {
 				</td>
 			</tr>		
 		</table>
+		<%-- 네이버로그인 부분 --%>
+		<p>
+		<a href="${apiURL}">
+			<img height="30" src="http://static.nid.naver.com/oauth/small_g_in.PNG">
+		</a>
 	</form:form>
 </body>
 </html>
