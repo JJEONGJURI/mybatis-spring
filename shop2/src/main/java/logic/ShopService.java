@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
 import dao.CommentDao;
+import dao.ExDao;
 import dao.ItemDao;
 import dao.SaleDao;
 import dao.SaleItemDao;
@@ -34,6 +35,8 @@ public class ShopService {
 	private BoardDao boardDao;
 	@Autowired 
 	private CommentDao commDao;
+	@Autowired
+	private ExDao exDao;
 
 	public List<Item> itemList() {
 		return itemDao.list();
@@ -229,6 +232,12 @@ public class ShopService {
 	public Comment getSelectOne(int num, int seq) {
 		return commDao.selectOne(num,seq);
 	}
+
+	public void exchangeInsert(Exchange ex) {
+		exDao.insert(ex);
+		
+	}
+
 
 
 }

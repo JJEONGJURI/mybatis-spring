@@ -12,9 +12,9 @@ import logic.User;
 
 public interface UserMapper {
 
-	@Insert("insert into usersecurity (userid,username,password,"
+	@Insert("insert into usersecurity (userid, channel, username,password,"
 			+ " birthday,phoneno,postcode,address,email) values " //birthday는 datetime type
-			+ " (#{userid},#{username},#{password},"
+			+ " (#{userid}, #{channel}, #{username},#{password},"
 			+ "  #{birthday},#{phoneno},#{postcode},#{address},#{email})")
 	void insert(User user);
 	

@@ -131,7 +131,6 @@ public class UserController {
 		try {
 			redirectURI = URLEncoder.encode("YOUR_CALLBACK_URL","UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -178,7 +177,6 @@ public class UserController {
 		try {
 			json = (JSONObject)parser.parse(res.toString());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	//네이버 응답데이터를 json 객체로 생성.
 		String token = (String)json.get("access_token");	//정상적인 로그인 요청인 경우 네이버가 발생한 코드값
@@ -212,15 +210,26 @@ public class UserController {
 		try {
 			json = (JSONObject)parser.parse(res.toString());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(json);	//네이버 사용자의 정보 수신.
 		JSONObject jsondetail = (JSONObject)json.get("response");	
 		System.out.println(jsondetail.get("id"));
 		System.out.println(jsondetail.get("email"));
-		
-		return null;
+		//=======================================================
+		String userid = jsondetail.get("id").toString();
+		User user = service.selectUserOne(userid);
+		if(user == null) {
+			user = new User();
+			user.setUserid(userid);
+			user.setUsername(jsondetail.get("name").toString());
+			String email = jsondetail.get("email").toString();
+			user.setEmail(this.emailEncrypt(email,userid));
+			user.setChannel("naver");
+			service.userInsert(user);
+		}
+		session.setAttribute("loginUser", user);
+		return "redirect:mypage?userid="+user.getUserid();
 	}
 
 	@PostMapping("join")	//회원가입

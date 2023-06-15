@@ -77,7 +77,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="${path}/board/list?boardid=3" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url == "board" && boardid=="3"}'>w3-blue</c:if>">
     <i class="fa fa-eye fa-fw"></i>&nbsp; QnA</a>
+	<hr>
+	<a href="${path}/naver/search"
+	class="w3-bar-item w3-button w3-padding <c:if test='${url == "naver"}'>w3-blue</c:if>">
+	<i class="fa fa-eye fa-fw"></i>&nbsp; 네이버검색</a>
   </div>
+  <br><br>
   
   <!-- 크롤링 시작 : 수출입은행 환율 정보 표시 영역 -->
 	
