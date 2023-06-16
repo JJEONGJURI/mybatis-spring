@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import dao.ItemDao;
 import dao.SaleDao;
 import dao.SaleItemDao;
 import dao.UserDao;
+import util.CipherUtil;
 @Service   //@Component + Service(controller 기능과 dao 기능의 중간 역할 기능) 
 public class ShopService {
 	@Autowired //객체 주입
@@ -37,6 +39,8 @@ public class ShopService {
 	private CommentDao commDao;
 	@Autowired
 	private ExDao exDao;
+	@Autowired
+	private CipherUtil util;
 
 	public List<Item> itemList() {
 		return itemDao.list();
@@ -237,6 +241,16 @@ public class ShopService {
 		exDao.insert(ex);
 		
 	}
+	public String emailDecrypt(User loginUser)  {
+		try {
+			String key = util.makehash(loginUser.getUserid(), "SHA-256");
+			return loginUser.getEmail();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 
 
